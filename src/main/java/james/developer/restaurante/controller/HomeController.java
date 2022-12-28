@@ -1,5 +1,6 @@
 package james.developer.restaurante.controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import james.developer.restaurante.model.Menu;
 import james.developer.restaurante.model.Reserva;
+import james.developer.restaurante.model.Usuario;
 import james.developer.restaurante.repository.MenuRepository;
 import james.developer.restaurante.repository.ReservaRepository;
+import james.developer.restaurante.repository.UsuarioRepository;
+import james.developer.restaurante.service.ImplementacaoUserDetailsSercice;
 
 
 @RestController /* Arquitetura REST */
@@ -37,6 +41,12 @@ public class HomeController {
 	
 	@Autowired
 	private MenuRepository menuRepository;
+	
+	@Autowired /* de fosse CDI seria @Inject */
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
 	
 	
 	@GetMapping(value = "/reserva/{id}", produces = "application/json")
@@ -88,6 +98,8 @@ public class HomeController {
 
 		return new ResponseEntity<Page<Menu>>(list, HttpStatus.OK);
 	}
+
+	
 
 	
 	}

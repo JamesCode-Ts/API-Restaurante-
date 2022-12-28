@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -28,6 +28,8 @@ public class RestauranteApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestauranteApplication.class, args);
+		System.out.println(new BCryptPasswordEncoder().encode("123"));
+		
 		
 		
 	}
@@ -42,6 +44,11 @@ public class RestauranteApplication implements WebMvcConfigurer {
 		
 		
 		registry.addMapping("/contato/**")
+		.allowedMethods("*")
+		.allowedOrigins("*");
+		
+		
+		registry.addMapping("/adm/**")
 		.allowedMethods("*")
 		.allowedOrigins("*");
 		
