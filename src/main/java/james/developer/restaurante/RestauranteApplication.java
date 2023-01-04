@@ -52,6 +52,7 @@ public class RestauranteApplication implements WebMvcConfigurer {
 		.allowedMethods("*")
 		.allowedOrigins("*");
 		
+		
 
 		
 		

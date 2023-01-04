@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import james.developer.restaurante.service.ImplementacaoUserDetailsSercice;
+
 //import curso.api.rest.service.ImplementacaoUserDetailsSercice;
 
 /*Mapeaia URL, enderecos, autoriza ou bloqueia acessoa a URL*/
@@ -20,8 +22,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	
-//	@Autowired
-//	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
+	@Autowired
+	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
 	
 	
 	/*Configura as solicitações de acesso por Http*/
@@ -45,28 +47,29 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
 		
 		/*Maperia URL de Logout e insvalida o usuário*/
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		
 		/*Filtra requisições de login para autenticação*/
-	//	.and().addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), 
-	//								UsernamePasswordAuthenticationFilter.class)
+		.and().addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), 
+									UsernamePasswordAuthenticationFilter.class)
 		
 		/*Filtra demais requisições paa verificar a presenção do TOKEN JWT no HEADER HTTP*/
-	//	.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
+		.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
 	
 	}
 	
 	
 	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 	/*Service que irá consultar o usuário no banco de dados*/	
-///	auth.userDetailsService(implementacaoUserDetailsSercice)
+	auth.userDetailsService(implementacaoUserDetailsSercice)
 	
 	/*Padrão de codigição de senha*/
-//	.passwordEncoder(new BCryptPasswordEncoder());
+	.passwordEncoder(new BCryptPasswordEncoder());
 	
 	//}
 
+}
 }

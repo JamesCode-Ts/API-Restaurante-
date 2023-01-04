@@ -1,15 +1,24 @@
 package james.developer.restaurante.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
-import org.springframework.security.core.GrantedAuthority;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.JoinColumn;
+import javax.persistence.ForeignKey;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,7 +41,12 @@ public class Usuario implements UserDetails {
 
 	private String senha;
 	
-	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id",
+			"role_id" }, name = "unique_role_user"), joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario", unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
+
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false, foreignKey = @ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))
+	private List<Role> roles = new ArrayList<Role>(); /* Os papeis ou acessos */
 
 	
 	public Long getId() {
@@ -94,11 +108,13 @@ public class Usuario implements UserDetails {
 	}
 
 
+	/* São os acessos do usuário ROLE_ADMIN OU ROLE_VISITANTE */
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Role> getAuthorities() {
+
+		return roles;
 	}
+
 
 	@JsonIgnore
 	@Override

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import james.developer.restaurante.model.Usuario;
 import james.developer.restaurante.repository.UsuarioRepository;
+import james.developer.restaurante.service.ImplementacaoUserDetailsSercice;
 
 @RestController /* Arquitetura REST */
 @RequestMapping(value = "/adm")
@@ -23,6 +24,8 @@ public class AdmController {
 	@Autowired /* de fosse CDI seria @Inject */
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
 	
 	@PostMapping(value = "/", produces = "application/json")
 	@CachePut("cacheusuarios")
@@ -33,7 +36,7 @@ public class AdmController {
 		usuario.setSenha(senhacriptografada);
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
-	//	implementacaoUserDetailsSercice.insereAcessoPadrao(usuarioSalvo.getId());
+		implementacaoUserDetailsSercice.insereAcessoPadrao(usuarioSalvo.getId());
 
 		return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
 
