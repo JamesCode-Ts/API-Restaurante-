@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
 import javax.validation.Valid;
-
+import james.developer.restaurante.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import james.developer.restaurante.model.Menu;
 import james.developer.restaurante.model.Usuario;
 import james.developer.restaurante.repository.UsuarioRepository;
 import james.developer.restaurante.service.ImplementacaoUserDetailsSercice;
@@ -33,6 +34,9 @@ public class AdmController {
 
 	@Autowired /* de fosse CDI seria @Inject */
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private MenuRepository menuRepository;
 	
 	@Autowired
 	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
@@ -113,6 +117,8 @@ public class AdmController {
 
 		return new ResponseEntity<Page<Usuario>>(list, HttpStatus.OK);
 	}
+	
+	
 
-
+	
 }
