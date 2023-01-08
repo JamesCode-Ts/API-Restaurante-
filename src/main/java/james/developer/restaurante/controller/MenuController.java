@@ -58,6 +58,20 @@ public class MenuController {
 		return new ResponseEntity<Page<Menu>>(list, HttpStatus.OK);
 	}
 	
+	
+	
+	@GetMapping(value = "/qnt", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Long> qtdMenu() throws InterruptedException {
+
+		
+
+		Long quantdeMenu =  menuRepository.buscarQuantDeMenu();
+
+		return new ResponseEntity<Long>(quantdeMenu, HttpStatus.OK);
+	}
+	
+	
 	@PutMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Menu> atualizar(@RequestBody Menu menu) {
 

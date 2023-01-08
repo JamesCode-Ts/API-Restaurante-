@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinColumn;
 import javax.persistence.ForeignKey;
@@ -40,6 +40,9 @@ public class Usuario implements UserDetails {
 	private String nome;
 
 	private String senha;
+
+
+	private Long quantDeUser;
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id",
@@ -88,7 +91,26 @@ public class Usuario implements UserDetails {
 		this.nome = nome;
 	}
 
+	
+	public Long getQuantDeUser() {
+		return quantDeUser;
+	}
 
+
+	public void setQuantDeUser(Long quantDeUser) {
+		this.quantDeUser = quantDeUser;
+	}
+
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

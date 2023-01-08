@@ -21,6 +21,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	@Modifying
 	@Query(nativeQuery = true, value = "insert into usuarios_role (usuario_id, role_id) values(?1, (select id from role where nome_role = 'ROLE_USER')); ")
 	void insereAcessoRolePadrao(Long idUser);
+	
+	
+	@Query(nativeQuery = true, value = "select count(id) as id  from usuario  ")
+	Long buscarQuantDeUser();
+
+
+	
 
 
 }

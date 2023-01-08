@@ -16,5 +16,7 @@ public interface MenuRepository extends JpaRepository <Menu, Long> {
 //	@Query("select * from Menu order by title")
   //  Menu findMenu();
 	
+	@Query(nativeQuery = true, value = "select count(id) as id  from menu")
+	Long buscarQuantDeMenu();
 
 }

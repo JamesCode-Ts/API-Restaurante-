@@ -60,13 +60,24 @@ public class AdmController {
 	@CachePut("cacheusuarios")
 	public ResponseEntity<Page<Usuario>> usuario() throws InterruptedException {
 
-		PageRequest page = PageRequest.of(0, 5, Sort.by("nome"));
+		PageRequest page = PageRequest.of(0, 10, Sort.by("nome"));
 
 		Page<Usuario> list = usuarioRepository.findAll(page);
 
 		return new ResponseEntity<Page<Usuario>>(list, HttpStatus.OK);
 	}
 
+	
+	@GetMapping(value = "/qnt", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Long> qtdusuario() throws InterruptedException {
+
+		
+
+		Long quantdeUser =  usuarioRepository.buscarQuantDeUser();
+
+		return new ResponseEntity<Long>(quantdeUser, HttpStatus.OK);
+	}
 	
 
 	
@@ -111,7 +122,7 @@ public class AdmController {
 	@CachePut("cacheusuarios")
 	public ResponseEntity<Page<Usuario>> usuarioPagina(@PathVariable("pagina") int pagina) throws InterruptedException {
 
-		PageRequest page = PageRequest.of(pagina, 5, Sort.by("nome"));
+		PageRequest page = PageRequest.of(pagina, 20, Sort.by("nome"));
 
 		Page<Usuario> list = usuarioRepository.findAll(page);
 
