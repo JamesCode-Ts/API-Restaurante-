@@ -12,6 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +30,7 @@ import james.developer.restaurante.model.Menu;
 import james.developer.restaurante.model.Usuario;
 import james.developer.restaurante.repository.UsuarioRepository;
 import james.developer.restaurante.service.ImplementacaoUserDetailsSercice;
-
+import java.io.*;
 @RestController /* Arquitetura REST */
 @RequestMapping(value = "/adm")
 
@@ -40,6 +44,8 @@ public class AdmController {
 	
 	@Autowired
 	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
+	
+	Usuario usuarioNome;
 	
 	@PostMapping(value = "/", produces = "application/json")
 	@CachePut("cacheusuarios")
@@ -68,6 +74,34 @@ public class AdmController {
 	}
 
 	
+	
+	@GetMapping(value = "/buscar", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Usuario> buscarUsuarioLogado() throws InterruptedException {
+		
+		
+	System.out.println("okkkkkkkkkkkk");
+
+	Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
+	
+	if(!(autenticado instanceof AnonymousAuthenticationToken)) {
+		
+		String login = autenticado.getName();
+		usuarioNome = usuarioRepository.buscarUsuarioEmail(login).get(0);
+		
+		System.out.println("ohhhhhhhhh");
+		
+	System.out.println(usuarioNome.toString());
+	
+		
+	}
+	
+	return new ResponseEntity<Usuario>(usuarioNome, HttpStatus.OK);
+	}
+	
+	
+
+	
 	@GetMapping(value = "/qnt", produces = "application/json")
 	@CachePut("cacheusuarios")
 	public ResponseEntity<Long> qtdusuario() throws InterruptedException {
@@ -82,10 +116,10 @@ public class AdmController {
 
 	
 	
-	@PutMapping(value = "/", produces = "application/json")
+	@PutMapping(value = "/update", produces = "application/json")
 	public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario) {
 
-	
+	System.out.println("Até aqui foi.");
 
 		Usuario userTemporario = usuarioRepository.findById(usuario.getId()).get();
 

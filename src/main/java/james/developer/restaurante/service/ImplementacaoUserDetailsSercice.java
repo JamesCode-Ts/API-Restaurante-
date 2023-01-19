@@ -47,8 +47,9 @@ public class ImplementacaoUserDetailsSercice implements UserDetailsService {
 			  jdbcTemplate.execute(" alter table usuarios_role  DROP CONSTRAINT " + constraint);
 		  }
 		  
-		  //Insere os acessos padrão
+	
 		  usuarioRepository.insereAcessoRolePadrao(id);
 		  
+
 	}
 }

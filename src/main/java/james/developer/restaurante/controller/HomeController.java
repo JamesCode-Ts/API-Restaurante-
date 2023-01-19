@@ -45,8 +45,7 @@ public class HomeController {
 	@Autowired /* de fosse CDI seria @Inject */
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
+	
 	
 	
 	@GetMapping(value = "/reserva/{id}", produces = "application/json")
@@ -58,6 +57,8 @@ public class HomeController {
 		return new ResponseEntity<Reserva>(reserva.get(), HttpStatus.OK);
 		
 	}
+	
+
 	
 	@PostMapping(value = "/", produces = "application/json")
 	@CachePut("cachereservas")
@@ -85,8 +86,30 @@ public class HomeController {
 		return new ResponseEntity<Page<Menu>>(list, HttpStatus.OK);
 	}
 	
-
 	
+	@GetMapping(value = "/reserva", produces = "application/json")
+	@CachePut("cachemenu")
+	public ResponseEntity<Page<Reserva>> reserva() throws InterruptedException {
+
+		PageRequest page = PageRequest.of(0, 10, Sort.by("nome"));
+
+		Page<Reserva> list = reservaRepository.findAll(page);
+
+		return new ResponseEntity<Page<Reserva>>(list, HttpStatus.OK);
+	}
+	
+
+	@GetMapping(value = "/page/{pagina}", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Page<Reserva>> reservaPagina(@PathVariable("pagina") int pagina) throws InterruptedException {
+
+		PageRequest page = PageRequest.of(pagina, 5, Sort.by("nome"));
+
+		Page<Reserva> list = reservaRepository.findAll(page);
+
+		return new ResponseEntity<Page<Reserva>>(list, HttpStatus.OK);
+	}
+
 
 	
 }

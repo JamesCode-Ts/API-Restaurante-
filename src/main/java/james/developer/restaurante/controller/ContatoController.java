@@ -57,6 +57,18 @@ public class ContatoController {
 		return new ResponseEntity<Page<Contato>>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/qnt", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Long> qtdMenu() throws InterruptedException {
+
+		
+
+		Long quantdeContato =  contatoRepository.buscarQuantDeContato();
+
+		return new ResponseEntity<Long>(quantdeContato, HttpStatus.OK);
+	}
+	
+	
 	@PutMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Contato> atualizar(@RequestBody Contato contato) {
 

@@ -1,25 +1,30 @@
 package james.developer.restaurante.model;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.List;
-import java.util.Objects;
+
 
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinColumn;
-import javax.persistence.ForeignKey;
+import javax.persistence.JoinTable;
+
+import javax.persistence.OneToMany;
+
+import javax.persistence.UniqueConstraint;
+
 
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,13 +47,15 @@ public class Usuario implements UserDetails {
 	private String senha;
 
 
-	private Long quantDeUser;
+
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id",
-			"role_id" }, name = "unique_role_user"), joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario", unique = false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
+			"role_id" }, name = "unique_role_user"), joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id", table = "usuario", unique = 
+			false, foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
 
-			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false, foreignKey = @ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false, foreignKey = 
+			@ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Role> roles = new ArrayList<Role>(); /* Os papeis ou acessos */
 
 	
@@ -92,30 +99,16 @@ public class Usuario implements UserDetails {
 	}
 
 	
-	public Long getQuantDeUser() {
-		return quantDeUser;
-	}
 
 
-	public void setQuantDeUser(Long quantDeUser) {
-		this.quantDeUser = quantDeUser;
-	}
 
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -126,7 +119,12 @@ public class Usuario implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 
@@ -149,7 +147,9 @@ public class Usuario implements UserDetails {
 	public String getUsername() {
 		return this.login;
 	}
+	
 
+	
 	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
