@@ -75,6 +75,18 @@ public class HomeController {
 
 	}
 	
+	
+	@GetMapping(value = "/qnt", produces = "application/json")
+	@CachePut("cacheusuarios")
+	public ResponseEntity<Long> qntReserva() throws InterruptedException {
+
+		
+
+		Long quantdeReserva =  reservaRepository.buscarQuantDeReserva();
+
+		return new ResponseEntity<Long>(quantdeReserva, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/", produces = "application/json")
 	@CachePut("cachemenu")
 	public ResponseEntity<Page<Menu>> menu() throws InterruptedException {
