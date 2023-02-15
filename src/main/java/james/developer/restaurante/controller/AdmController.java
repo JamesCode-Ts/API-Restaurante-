@@ -85,11 +85,10 @@ public class AdmController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
-            // O que vc precisa do usuário/ S´,o n nome e foto apenas.Mas vamos ver se colocamos o usuário todo
             if (principal instanceof Usuario) {
                 Usuario u = (Usuario) principal;
                
-                System.out.println(u.toString());
+                
                 
             	return new ResponseEntity<Usuario>(u, HttpStatus.OK);
             	

@@ -42,6 +42,9 @@ public class RestauranteApplication implements WebMvcConfigurer {
 		.allowedMethods("*")
 		.allowedOrigins("*");
 		
+		registry.addMapping("/reserva/**")
+		.allowedMethods("*")
+		.allowedOrigins("*");
 		
 		registry.addMapping("/contato/**")
 		.allowedMethods("*")
