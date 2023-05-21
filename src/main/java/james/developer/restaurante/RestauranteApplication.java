@@ -33,7 +33,7 @@ public class RestauranteApplication implements WebMvcConfigurer {
 		
 		
 	}
-		
+		@Profile({"dev","prod"})
 	    /*Mapeamento Global que refletem em todo o sistema*/
 		@Override
 		
