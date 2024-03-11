@@ -1,16 +1,26 @@
+# Stage 1: Build the application
 FROM ubuntu:latest AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+# Atualiza a lista de pacotes e instala o JDK
+RUN apt-get update && apt-get install -y openjdk-17-jdk
+
+# Configura o diretório de trabalho e copia os arquivos
+WORKDIR /app
 COPY . .
 
-RUN apt-get install maven -y
-RUN mvn clean install 
+# Instala o Maven e constrói o aplicativo
+RUN apt-get install -y maven
+RUN mvn clean install
 
+# Stage 2: Run the application
 FROM openjdk:17-jdk-slim
 
+# Configura a exposição da porta
 EXPOSE 8080
 
-COPY --from=build /target/deploy_render-1.0.0.jar app.jar
+# Configura o diretório de trabalho e copia o arquivo JAR do estágio anterior
+WORKDIR /app
+COPY --from=build /app/target/deploy_render-1.0.0.jar app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+# Configura o comando de entrada
+ENTRYPOINT ["java", "-jar", "app.jar"]
