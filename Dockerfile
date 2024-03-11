@@ -20,7 +20,7 @@ EXPOSE 8080
 
 # Configura o diretório de trabalho e copia o arquivo JAR do estágio anterior
 WORKDIR /app
-COPY --from=build /app/target/deploy_render-1.0.0.jar app.jar
+COPY --from=build /app/target/restaurante-0.0.1-SNAPSHOT.jar app.jar
 
 # Configura o comando de entrada
 ENTRYPOINT ["java", "-jar", "app.jar"]
