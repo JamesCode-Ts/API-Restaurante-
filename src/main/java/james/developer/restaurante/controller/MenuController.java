@@ -71,7 +71,7 @@ public class MenuController {
 		return new ResponseEntity<Long>(quantdeMenu, HttpStatus.OK);
 	}
 	
-	
+	/*
 	@PutMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Menu> atualizar(@RequestBody Menu menu) {
 
@@ -83,6 +83,22 @@ public class MenuController {
 		return new ResponseEntity<Menu>(menuSalvo, HttpStatus.OK);
 
 	}
+	*/
+	@PutMapping(value = "/{id}", produces = "application/json")
+	public ResponseEntity<Menu> atualizar(@PathVariable Long id, @RequestBody Menu menuAtualizado) {
+	
+	            // Salva as alterações no menu existente
+	            Menu menuUpdate = menuRepository.save(menuAtualizado);
+
+	            // Retorna 200 OK com o menu atualizado
+	            return new ResponseEntity<>(menuUpdate, HttpStatus.OK);
+	       
+	       
+	}
+
+	  
+	
+	
 	
 	@GetMapping(value = "/{id}", produces = "application/json")
 	@CachePut("cacheuser")
