@@ -77,19 +77,19 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 
 
 
-### - Tecnologias Utilizadas:
+### Tecnologias Utilizadas:
 
-* Java
+* #### Java
 
-* SpringBoot
+* #### SpringBoot
 
-* Spring Security
+* #### Spring Security
 
-* PostgreSQL
+* #### PostgreSQL
 
-* Devtools
+* #### Devtools
 
-* JWT
+* #### JWT
 
-* MAVEN
+* #### MAVEN
 
