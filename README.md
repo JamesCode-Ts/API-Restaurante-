@@ -30,25 +30,66 @@ sdk install maven
 ```
 
 4. Instale e configure o postgres de acordo com seu sistema Operacional.
-   Crie um banco de dados de acordo com o que esta espeficiado 
-
+   * Neste caso darei instruções pra instalar o postgres no linux(Ubuntu).
    
+    I. Instalar a chave pública para o repositório (se ainda não foi feito anteriormente):
+
+```bash
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+```
+
+II. Criar o arquivo de configuração do repositório:
+
+```bash
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+```
+
+
+ ### 5. Instalar pgAdmin
+
+
+ I. Instalar para ambos os modos desktop e web:
+
+```bash
+sudo apt install pgadmin4
+```
+
+II. Instalar apenas para o modo desktop:
+
+```bash
+sudo apt install pgadmin4-desktop
+```
+
+III. Instalar apenas para o modo web: 
+
+```bash
+sudo apt install pgadmin4-web 
+```
+
+IV. Configurar o servidor web, se você instalou pgadmin4-web:
+
+```bash
+sudo /usr/pgadmin4/bin/setup-web.sh
+```
+6. Crie um banco de dados de acordo com o que esta espeficado no application-dev.properties.
+
+7. Execute a aplicação
 
 
 
-Tecnologias Utilizadas:
+### - Tecnologias Utilizadas:
 
-Java
+* Java
 
-SpringBoot
+* SpringBoot
 
-Spring Security
+* Spring Security
 
-PostgreSQL
+* PostgreSQL
 
-Devtools
+* Devtools
 
-JWT
+* JWT
 
-MAVEN
+* MAVEN
 
