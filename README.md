@@ -73,7 +73,7 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 ```
 6. Crie um banco de dados de acordo com o que esta espeficado no application-dev.properties.
 
-7. Execute a aplicação
+7. Execute a aplicação.
 
 
 
