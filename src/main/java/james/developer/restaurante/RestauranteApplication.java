@@ -26,7 +26,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableAutoConfiguration
 @EnableCaching
 @Configuration
-@Profile("prod")
 public class RestauranteApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
@@ -38,32 +37,30 @@ public class RestauranteApplication implements WebMvcConfigurer {
 	}
 		
 	    /*Mapeamento Global que refletem em todo o sistema*/
-		@Override
-		
-		public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/home/**")
-		.allowedMethods("*")
-		.allowedOrigins("*");
-		
-		
-		registry.addMapping("/contato/**")
-		.allowedMethods("*")
-		.allowedOrigins("*");
-		
-		
-		registry.addMapping("/adm/**")
-		.allowedMethods("*")
-		.allowedOrigins("*");
-		
-		registry.addMapping("/menu/**")
-		.allowedMethods("*")
-		.allowedOrigins("*");
-		
-		
+	     @Override
+public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**") // Permitir em todas as rotas
+        .allowedMethods("*")
+        .allowedOrigins("*")
+        .allowedHeaders("*") // Permitir todos os cabeçalhos
+        .allowCredentials(true); // Permitir credenciais (cookies)
 
-		
-		
-		
-	}
+    // Mapeamento específico (se preferir)
+    registry.addMapping("/home/**")
+        .allowedMethods("*")
+        .allowedOrigins("*");
+
+    registry.addMapping("/contato/**")
+        .allowedMethods("*")
+        .allowedOrigins("*");
+
+    registry.addMapping("/adm/**")
+        .allowedMethods("*")
+        .allowedOrigins("*");
+
+    registry.addMapping("/menu/**")
+        .allowedMethods("*")
+        .allowedOrigins("*");
+}
 
 }
