@@ -1,8 +1,5 @@
 # API-Restaurante
-No decorrer deste projeto pude desenvolver um Sistema Web completo. Uma API, cujo back-end foi construído em Java usando o spring Boot.
-O projeto de um restaurante fictício atende todas as necessidades e funcionalidades de um serviço de mundo real. 
-O site conta com cadastramento de usuário, agendamento de reserva, opções de menu, inscrição por e-mail, responsividade para todos os dispositivos, salvamento de imagens para o usuário e menu,  e muito mais.. 
-No que se refere a segurança foi utilizado o Spring Security, com validação e geração de Token com o JWT. 
+No decorrer deste projeto, desenvolvi um Sistema Web completo. A API, cujo back-end foi construída em Java com Spring Boot, integra um ambiente Dockerizado, proporcionando portabilidade e agilidade no desenvolvimento e deploy. O projeto, de um restaurante fictício, atende todas as necessidades e funcionalidades de um serviço de mundo real. O site conta com cadastramento de usuário, agendamento de reserva, opções de menu, inscrição por e-mail, responsividade para todos os dispositivos, salvamento de imagens para o usuário e menu, entre outras funcionalidades. No que se refere à segurança, foi utilizado o Spring Security, com validação e geração de Token JWT.
 
 
 
